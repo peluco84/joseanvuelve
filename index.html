@@ -11,17 +11,13 @@
             background: linear-gradient(120deg, #8BC34A, #FF5252);
             color: white;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            overflow-y: scroll;
+            height: 200vh; /* For scrollable effect */
         }
 
         h1 {
             font-size: 3rem;
-            margin-bottom: 0.5rem;
+            margin-top: 2rem;
             color: #FFEB3B;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
@@ -77,30 +73,33 @@
             transform: scale(1.1);
         }
 
-        body::after {
-            content: "";
+        /* Efecto de nieve */
+        .snowflake {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://cdn.pixabay.com/photo/2016/11/19/14/00/christmas-1839553_1280.png');
-            opacity: 0.1;
-            z-index: -1;
+            top: -10px;
+            color: white;
+            font-size: 1.2rem;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Josean Vuelve a casa por Navidad</h1>
-
+        <h1>Josean Vuelve</h1>
+        <h3>Vuelve a casa por Navidad</h3>
         <div class="image-container">
-            <img id="uploaded-image" src="josean.jpg" alt="Imagen de Josean">
+            <img id="uploaded-image" src="#" alt="Imagen de Josean" style="display: none;">
         </div>
-        <h3>Solo quedan...</h3>
         <div class="countdown" id="countdown"></div>
         <button id="play-sound">¿Quieres sentirlo antes de su llegada?</button>
-        <audio id="audio" src="pedo.ogg"></audio>
+        <audio id="audio" src="audio.mp3"></audio>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -133,6 +132,26 @@
             playButton.addEventListener('click', () => {
                 audio.play();
             });
+
+            // Efecto de nieve
+            const snowContainer = document.body;
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.textContent = '❄';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // Velocidad de caída
+                snowflake.style.opacity = Math.random();
+                snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; // Tamaño aleatorio
+                snowContainer.appendChild(snowflake);
+
+                // Eliminar el copo después de que caiga
+                setTimeout(() => {
+                    snowflake.remove();
+                }, 5000);
+            }
+
+            setInterval(createSnowflake, 150); // Generar copos continuamente
         });
     </script>
 </body>
