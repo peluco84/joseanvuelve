@@ -11,8 +11,8 @@
             background: linear-gradient(120deg, #8BC34A, #FF5252);
             color: white;
             text-align: center;
-            overflow-y: hidden; /* Elimina el scroll vertical */
-            min-height: 100vh; /* Ajusta la altura mínima a la ventana */
+            overflow-y: scroll;
+            height: 200vh; /* For scrollable effect */
         }
 
         h1 {
@@ -106,13 +106,6 @@
             const countdownElement = document.getElementById('countdown');
             const audio = document.getElementById('audio');
             const playButton = document.getElementById('play-sound');
-
-            // Reproducción automática del sonido al cargar la página (si lo permite el navegador)
-            window.onload = () => {
-                audio.play().catch(error => {
-                    console.log("El sonido no se pudo reproducir automáticamente:", error);
-                });
-            };
 
             // Actualización de la cuenta regresiva
             function updateCountdown() {
